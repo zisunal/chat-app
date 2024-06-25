@@ -1,18 +1,12 @@
 const router = require('express').Router();
+const { register, login, otpVerify, sendOtp, reset, logout } = require('../controllers/AuthController');
 
-router.post('/register', async (req, res) => {
-    try {
-        const user = await User.create(req.body);
-        res.status(201).json({
-            status: 'success',
-            data: user,
-        });
-    } catch (error) {
-        res.status(400).json({
-            status: 'fail',
-            message: error.message,
-        });
-    }
-});
+router.post('/register', register);
+router.post('/login', login);
+router.post('/verify', otpVerify);
+router.post('/send-otp', sendOtp);
+router.post('/reset', reset);
+router.get('/logout', logout);
+
 
 module.exports = router;

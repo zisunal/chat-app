@@ -3,6 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./helpers/connect');
 const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
 
 const app = express();
 const server = require('http').createServer(app);
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
+app.use('/api/auth', authRouter);
 
 connectDB().then(() => {
     server.listen(process.env.PORT, () => {

@@ -16,14 +16,23 @@ const userSchema = new mongoose.Schema({
     },
     profile_pic: {
         type: String,
+        default: "",
     },
     role: {
         type: String,
         enum: ['user', 'admin'],
         default: 'user',
     },
+    otp: {
+        type: Number,
+        required: true,
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
 }, {
     timestamps: true,
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('users', userSchema);

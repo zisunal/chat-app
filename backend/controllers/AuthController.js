@@ -178,11 +178,11 @@ exports.sendOtp = async (req, res) => {
 
 exports.reset = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
+        const { email, password, otp } = req.body;
+        if (!email || !password || !otp) {
             return res.status(400).json({
                 status: 'fail',
-                message: 'Please provide email and password',
+                message: 'Please provide email, password and OTP',
             });
         }
         const user = await User.findOne({ email });
@@ -190,6 +190,12 @@ exports.reset = async (req, res) => {
             return res.status(400).json({
                 status: 'fail',
                 message: 'User not found',
+            });
+        }
+        if (user.otp !== otp) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Invalid OTP',
             });
         }
         const hashedPassword = await bcrypt.hash(password, eval(process.env.SALT_ROUNDS));

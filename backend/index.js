@@ -10,7 +10,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.FRONT_URL,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
